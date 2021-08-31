@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/header";
-import Home from "./components/home";
+import VideoList from "./components/video_list/video_list";
 import axios from "axios";
 import "./components/style.modules.css";
 
 function App() {
-  const [videos, setvVdeos] = useState([]);
+  const [videos, setVdeos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(null);
@@ -14,19 +14,19 @@ function App() {
     const fetchVideos = async () => {
       try {
         setError(null);
-        setvVdeos(null);
+        setVdeos(null);
         setLoading(true);
 
         if (search === null) {
           const response = await axios.get(
             "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyC8UdzH8NTzMJ4SRTm8nQU2xQlnOqC1j2U"
           );
-          setvVdeos(response.data.items);
+          setVdeos(response.data.items);
         } else {
           const responsee = await axios.get(
             `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search}}&key=AIzaSyC8UdzH8NTzMJ4SRTm8nQU2xQlnOqC1j2U`
           );
-          setvVdeos(responsee.data.items);
+          setVdeos(responsee.data.items);
         }
       } catch (e) {
         setError(e);
@@ -44,7 +44,7 @@ function App() {
   return (
     <>
       <Header setSearch={setSearch} />
-      <Home videos={videos} />
+      <VideoList videos={videos} />
     </>
   );
 }
