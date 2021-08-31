@@ -1,20 +1,14 @@
-.video-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-.video-list li {
+.video {
   list-style: none;
   max-width: 320px;
   margin-bottom: 40px;
 }
-.video-list li .video-infomation {
-}
-.video-list li .video-infomation h3 {
+
+.descripstion h3 {
   font-size: 16px;
   margin: 12px 0;
 }
-.video-list li .video-infomation p {
+.descripstion p {
   margin: 4px 0;
 }
 nav {

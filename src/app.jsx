@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Header from "./components/header";
+import Header from "./components/header/header";
 import VideoList from "./components/video_list/video_list";
 import axios from "axios";
-import "./components/style.modules.css";
 
 function App() {
   const [videos, setVdeos] = useState([]);
@@ -23,10 +22,14 @@ function App() {
           );
           setVdeos(response.data.items);
         } else {
-          const responsee = await axios.get(
-            `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search}}&key=AIzaSyC8UdzH8NTzMJ4SRTm8nQU2xQlnOqC1j2U`
+          const responseSearch = await axios.get(
+            `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=25&q=${search}}&key=AIzaSyC8UdzH8NTzMJ4SRTm8nQU2xQlnOqC1j2U`
           );
-          setVdeos(responsee.data.items);
+          const items = responseSearch.data.items.map((item) => ({
+            ...item,
+            id: item.id.videoId,
+          }));
+          setVdeos(items);
         }
       } catch (e) {
         setError(e);
@@ -43,7 +46,7 @@ function App() {
 
   return (
     <>
-      <Header setSearch={setSearch} />
+      <Header onSearch={setSearch} />
       <VideoList videos={videos} />
     </>
   );
