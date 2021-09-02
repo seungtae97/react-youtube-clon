@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./header.module.css";
 
-function Header({ onSearch }) {
+const Header = memo(({ onSearch }) => {
   const formRef = React.createRef();
   const inputRef = React.createRef();
   const onSubmit = (event) => {
@@ -20,6 +20,5 @@ function Header({ onSearch }) {
       </form>
     </header>
   );
-}
-
+});
 export default Header;
